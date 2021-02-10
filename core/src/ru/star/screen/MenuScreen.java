@@ -1,29 +1,25 @@
 package ru.star.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.star.base.BaseScreen;
+import ru.star.math.Rect;
+import ru.star.sprite.Background;
 
 public class MenuScreen extends BaseScreen {
 
-    private Texture img;
-    private Vector2 touch;
-    private Vector2 v;
-    private Vector2 d;
-    private Vector2 def;
+    private Texture bg;
+    private Background background;
 
     @Override
     public void show() {
         super.show();
-        img = new Texture("badlogic.jpg");
-        touch = new Vector2();
-        v = new Vector2();
-        d = new Vector2(0,0);
-        def = new Vector2();
+        bg = new Texture("textures/bg.png");
+        background = new Background(bg);
     }
 
     @Override
@@ -31,45 +27,24 @@ public class MenuScreen extends BaseScreen {
         Gdx.gl.glClearColor(0.3f, 0.6f, 0.4f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(img, touch.x, touch.y);
+        background.draw(batch);
         batch.end();
-        touch.add(v);
-        if (Math.abs(d.cpy().len() - touch.cpy().len())<=1) {
-            v.set(0, 0);
-        }
     }
 
     @Override
     public void dispose() {
-        img.dispose();
+        bg.dispose();
         super.dispose();
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        def.set(d);
-        d.set(screenX, Gdx.graphics.getHeight() - screenY);
-        v = d.cpy().sub(def).nor();
-        return false;
+    public void resize(Rect worldBounds) {
+        background.resize(worldBounds);
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.UP:
-                touch.y += 10;
-                break;
-            case Input.Keys.DOWN:
-                touch.y -= 10;
-                break;
-            case Input.Keys.RIGHT:
-                touch.x += 10;
-                break;
-            case Input.Keys.LEFT:
-                touch.x -= 10;
-                break;
-        }
-        return false;
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
+        return super.touchDown(touch, pointer, button);
     }
 }
 
