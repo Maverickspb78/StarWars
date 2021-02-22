@@ -17,7 +17,7 @@ public class BaseScreen implements Screen, InputProcessor {
 
     private Rect screenBounds;
     private Rect glBounds;
-    protected Rect worldBounds;
+    private Rect worldBounds;
 
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
@@ -147,10 +147,11 @@ public class BaseScreen implements Screen, InputProcessor {
         return false;
     }
 
-
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        System.out.println("scrolled amountX = " + amountX + "amountY" + amountY);
+        System.out.println("scrolled amountX = " + amountX + " amountY = " + amountY);
         return false;
     }
+
+
 }
