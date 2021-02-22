@@ -65,6 +65,7 @@ public class EnemyEmitter {
             EnemyShip enemyShip = enemyPool.obtain();
             float enemyType = (float) Math.random();
             if (enemyType < 0.5f) {
+                enemyShip.setReloadTimer(2.5f);
                 enemyShip.set(
                         enemySmallRegions,
                         enemySmallV,
@@ -77,6 +78,7 @@ public class EnemyEmitter {
                         ENEMY_SMALL_HP
                 );
             } else if (enemyType < 0.8f) {
+                enemyShip.setReloadTimer(1.5f);
                 enemyShip.set(
                         enemyMediumRegions,
                         enemyMediumV,
@@ -89,6 +91,7 @@ public class EnemyEmitter {
                         ENEMY_MEDIUM_HP
                 );
             } else {
+                enemyShip.setReloadTimer(0.5f);
                 enemyShip.set(
                         enemyBigRegions,
                         enemyBigV,

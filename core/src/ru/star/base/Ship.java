@@ -12,6 +12,7 @@ public class Ship extends Sprite {
 
     protected Vector2 v0;
     protected Vector2 v;
+    protected Vector2 vS;
 
     protected Rect worldBounds;
     protected BulletPool bulletPool;
@@ -49,5 +50,9 @@ public class Ship extends Sprite {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, damage);
         sound.play();
+    }
+
+    public void setReloadTimer(float reloadTimer) {
+        this.reloadTimer = reloadTimer;
     }
 }
