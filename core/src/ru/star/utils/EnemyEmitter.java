@@ -108,4 +108,6 @@ public class EnemyEmitter {
             enemyShip.setBottom(worldBounds.getTop());
         }
     }
-}
+
+
+    }
