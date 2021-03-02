@@ -18,6 +18,7 @@ import ru.star.pool.ExplosionPool;
 import ru.star.sprite.Background;
 import ru.star.sprite.Bullet;
 import ru.star.sprite.EnemyShip;
+import ru.star.sprite.GameOver;
 import ru.star.sprite.MainShip;
 import ru.star.sprite.Star;
 import ru.star.utils.EnemyEmitter;
@@ -37,6 +38,7 @@ public class GameScreen extends BaseScreen {
     private EnemyPool enemyPool;
 
     private MainShip mainShip;
+    private GameOver gameOver;
 
 
     private Music music;
@@ -52,7 +54,7 @@ public class GameScreen extends BaseScreen {
         atlas = new TextureAtlas(Gdx.files.internal("textures/mainAtlas.tpack"));
         background = new Background(bg);
         stars = new Star[STAR_COUNT];
-
+        gameOver = new GameOver(atlas);
 
         for (int i = 0; i < STAR_COUNT; i++) {
             stars[i] = new Star(atlas);
@@ -131,12 +133,17 @@ public class GameScreen extends BaseScreen {
             star.update(delta);
         }
 
-        mainShip.update(delta);
-        bulletPool.updateActiveSprites(delta);
         explosionPool.updateActiveSprites(delta);
-        enemyPool.updateActiveSprites(delta);
-        enemyEmitter.generate(delta);
 
+        if (mainShip.getHp() <= 0) {
+            enemyEmitter.generate(0f);
+            gameOver.update(delta);
+        } else {
+            mainShip.update(delta);
+            bulletPool.updateActiveSprites(delta);
+            enemyPool.updateActiveSprites(delta);
+            enemyEmitter.generate(delta);
+        }
     }
 
     private void checkCollisions() {
@@ -190,9 +197,13 @@ public class GameScreen extends BaseScreen {
             star.draw(batch);
         }
         explosionPool.drawActiveSprites(batch);
-        mainShip.draw(batch);
-        bulletPool.drawActiveSprites(batch);
-        enemyPool.drawActiveSprites(batch);
+        if(mainShip.getHp() <= 0){
+            gameOver.draw(batch);
+        }else {
+            mainShip.draw(batch);
+            bulletPool.drawActiveSprites(batch);
+            enemyPool.drawActiveSprites(batch);
+        }
         batch.end();
     }
 }
