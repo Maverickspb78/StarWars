@@ -8,6 +8,7 @@ import ru.star.sprite.EnemyShip;
 
 public class EnemyPool extends SpritesPool<EnemyShip> {
 
+
     private BulletPool bulletPool;
     private ExplosionPool explosionPool;
     private Rect worldBounds;
@@ -18,6 +19,7 @@ public class EnemyPool extends SpritesPool<EnemyShip> {
         this.explosionPool = explosionPool;
         this.worldBounds = worldBounds;
         this.sound = sound;
+
     }
 
     @Override

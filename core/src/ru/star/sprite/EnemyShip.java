@@ -6,18 +6,25 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.star.base.Ship;
 import ru.star.math.Rect;
+import ru.star.pool.BonusStarPool;
 import ru.star.pool.BulletPool;
 import ru.star.pool.ExplosionPool;
+
 
 public class EnemyShip extends Ship {
 
     private static final float START_V_Y = -0.3f;
+    private boolean gainsbool = false;
+    private BonusStarPool bonusStarPool = new BonusStarPool();
+    private BonusStar bonusStar = new BonusStar();
+
 
     public EnemyShip(BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds, Sound sound) {
         this.bulletPool = bulletPool;
         this.explosionPool = explosionPool;
         this.worldBounds = worldBounds;
         this.sound = sound;
+
         v = new Vector2();
         v0 = new Vector2();
         bulletPos = new Vector2();
@@ -68,4 +75,26 @@ public class EnemyShip extends Ship {
                 || bullet.getTop() < pos.y
         );
     }
+
+    public boolean ifGifGains(){
+        float gainsRandom = (float) Math.random();
+        if (gainsRandom > 0f){
+            gainsbool = true;
+        }
+        return gainsbool;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+
+    }
+
+    public void bonus(){
+        if (gainsbool){
+            bonusStarPool.obtain();
+        }
+    }
+
+
 }
