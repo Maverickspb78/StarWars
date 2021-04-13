@@ -38,6 +38,7 @@ public class Ship extends Sprite {
     public Ship() {
     }
 
+
     public Ship(TextureRegion region, int rows, int cols, int frames) {
         super(region, rows, cols, frames);
     }
